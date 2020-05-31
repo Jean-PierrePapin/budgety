@@ -73,7 +73,7 @@ var budgetController = (function() {
             return newItem;
         },
 
-        deleteItem: function() {
+        deleteItem: function(type, id) {
             var ids, index;
 
             // id = 3
@@ -247,7 +247,7 @@ var UIController = (function() {
 
             var fields = document.querySelectorAll( DOMstrings.expensesPercLabel );
 
-            var nodeListEach = function( list, callback ) {
+            var nodeListForEach = function( list, callback ) {
                 for( var i = 0; i < list.length; i++ ) {
                     callback( list[i], i );
                 }
@@ -256,7 +256,7 @@ var UIController = (function() {
             nodeListForEach( fields, function( current, index ) {
 
                 if ( percentages[index] > 0 ) {
-                    current.textContent = percentage[index] + '%';
+                    current.textContent = percentages[index] + '%';
                 } else {
                     current.textContent = '---';
                 }
@@ -356,8 +356,8 @@ var controller = (function(budgetCtrl, UICtrl) {
             type = splitID[0];
             ID = parseInt( splitID[1] );
 
-            // 1. Dekete the item from the data structure
-            budgetCtrl.deleteItem( type, ID );
+            // 1. Delete the item from the data structure
+            budgetController.deleteItem( type, ID );
 
             // 2. Delete the item from the UI
             UICtrl.deleteListItem( itemID );
